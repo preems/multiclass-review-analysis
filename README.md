@@ -1,4 +1,4 @@
-multiclass-review-analysis
+Multiclass Sentiment analysis for reviews
 ==========================
 
-Multiclass Sentiment analysis for Reviews
+The Aim of the project is to identify the aspects or attributes of a business about which people are writing the most in their reviews. 
