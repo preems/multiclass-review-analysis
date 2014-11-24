@@ -1,7 +1,6 @@
 phrasePatterns = [
 ("JJ","NN"),
-("JJ","NNS"),
-("JJ","NNP"),
+("NN","JJ"),
 ("RB","VBN"),
 ("JJ","JJ","!NN")
 ]
@@ -22,7 +21,7 @@ def searchPhrase(doc,phrase):
 				if "!" in phrase[j]:
 					flag = True if phrase[j][1:] in sent[i+j][1] else False
 				else:
-					flag = True if phrase[j]==sent[i+j][1] else False
+					flag = True if phrase[j] in sent[i+j][1] else False
 					if flag==False: break
 			if flag==True:
 				phrases_list.append(sent[i:i+j+1])
