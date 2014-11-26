@@ -6,7 +6,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 import phraseextractor 
 #from stepwords import step_words
 
-stop_words=['is','a','who','has','was','that','to','for','are','and','the']
+stop_words=['is','a','who','has','was','that','to','for','are','and','the', 'their', 'be', 'been', 'so', 'am', 'some', 'our', 'only', 'about', 'he', 'she', 'them', 'there', 'all', 'any', 'of', 'off', ',', '-', '.', '!', ':', ';', '&', '%', '$', '#']
 
 
 def tokenize(doc):
@@ -27,4 +27,5 @@ def tokenize(doc):
 	return processed_doc
 
 def getAllphrasesDoc(doc):
-	return phraseextractor.searchAllPhrases(tokenize(doc))
+	#return phraseextractor.searchAllPhrases(tokenize(doc))
+	return phraseextractor.searchAllPhrases_new(tokenize(doc))
