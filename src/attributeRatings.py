@@ -1,6 +1,7 @@
 import preprocessdoc
 import sys
 import json
+from math import ceil
 from lexicon import get_score as pol
 
 MINIMUM_THRESHOLD_FOR_TOP_ATTRIBUTE=5
@@ -14,7 +15,7 @@ def getTopAttributes(phrases):
 		if "NN" in phrase[0][1]:
 			a=phrase[0][0]
 			adj=phrase[1][0]
-		else:
+		elif "NN" in phrase[1][1]:
 			a=phrase[1][0]
 			adj=phrase[0][0]
 		if a not in AllAttributes:
@@ -44,11 +45,28 @@ def prettyPrintTopAttributes():
 
 
 def getSentimentFromLexicon():
+	print AllAttributes
 	for at,val in AllAttributes.items():
 		tot=0
 		for word in val:
 			tot+=pol(word)
-		AllAttributes[at]=tot/len(val)
+		AllAttributes[at]=normaize0to5( tot/len(val) )
+
+def normaize0to5(val):
+	return (val+1)*2.5
+
+def returnfinalAttributes(businessID):
+	AllAttributes={}
+	with open(businessID) as reviews:
+		for line in reviews:
+			jobj = json.loads(line)
+			if jobj["business_id"]==sys.argv[2]:
+				getTopAttributes(preprocessdoc.getAllphrasesDoc(jobj["text"]))
+		chooseValidAndTopAttributes()
+		getSentimentFromLexicon()
+		#prettyPrintTopAttributes()
+		return AllAttributes
+
 
 
 if __name__=="__main__":
@@ -61,3 +79,5 @@ if __name__=="__main__":
 		chooseValidAndTopAttributes()
 		getSentimentFromLexicon()
 		prettyPrintTopAttributes()
+
+
